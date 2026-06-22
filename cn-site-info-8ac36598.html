@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PG模拟器 · 知识库入口介绍页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #fde7d0 0%, #fbd6b5 50%, #f7c49a 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        /* 主容器：目录式卡片网格 */
+        .container {
+            max-width: 1120px;
+            width: 100%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.75rem;
+        }
+
+        /* 白色内容卡片 */
+        .card {
+            background-color: #ffffff;
+            border-radius: 32px;
+            padding: 2rem 2.2rem;
+            box-shadow: 0 12px 28px rgba(160, 100, 60, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: box-shadow 0.2s ease, transform 0.15s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 20px 36px rgba(170, 100, 50, 0.14);
+            transform: translateY(-2px);
+        }
+
+        /* 标题体系 */
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: #3d2a1a;
+            margin-bottom: 0.3rem;
+        }
+
+        .subhead {
+            font-size: 1.05rem;
+            color: #7a5d45;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #e6b17e;
+            padding-left: 1rem;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 550;
+            color: #4d3522;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #f3e2d4;
+            padding-bottom: 0.4rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #5a3f2b;
+            margin: 1rem 0 0.4rem;
+        }
+
+        p {
+            line-height: 1.7;
+            color: #2f241b;
+            margin-bottom: 0.9rem;
+        }
+
+        ul {
+            padding-left: 1.4rem;
+            margin: 0.6rem 0 1rem;
+        }
+
+        li {
+            margin-bottom: 0.4rem;
+            line-height: 1.6;
+            color: #2f241b;
+        }
+
+        /* 按钮感的链接 (仅用于目录项或独立链接，不是全部 a) */
+        .link-button {
+            display: inline-block;
+            background-color: #f4e0d0;
+            color: #4d3522;
+            padding: 0.55rem 1.3rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: background 0.2s, box-shadow 0.2s;
+            border: 1px solid #e6ceba;
+            margin: 0.2rem 0.3rem 0.2rem 0;
+        }
+
+        .link-button:hover {
+            background-color: #edccb5;
+            box-shadow: 0 4px 10px rgba(170, 110, 70, 0.12);
+        }
+
+        .link-button:active {
+            background-color: #e3bea2;
+        }
+
+        /* 知识库风格：两列网格用于特色区 */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin-top: 0.3rem;
+        }
+
+        .feature-item {
+            background: #faf3ec;
+            border-radius: 20px;
+            padding: 1rem 1.2rem;
+        }
+
+        .feature-item strong {
+            color: #4b3624;
+            display: block;
+            margin-bottom: 0.2rem;
+            font-size: 1.05rem;
+        }
+
+        /* 提示区 / FAQ 摘要用卡片加内边距 */
+        .tip-box {
+            background: #f6ede4;
+            border-radius: 18px;
+            padding: 1.1rem 1.5rem;
+            margin: 1rem 0 0.5rem;
+            border-left: 5px solid #dba87a;
+        }
+
+        .faq-short {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 2rem;
+            margin: 0.2rem 0 0.3rem;
+        }
+
+        .faq-short dt {
+            font-weight: 600;
+            color: #4d3522;
+            margin-bottom: 0.1rem;
+        }
+
+        .faq-short dd {
+            color: #3d2f25;
+            font-size: 0.95rem;
+            margin-left: 0;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #eddaca;
+            margin: 1.2rem 0;
+        }
+
+        .inline-link {
+            color: #9c6f4b;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            font-weight: 500;
+        }
+
+        .inline-link:hover {
+            color: #7a5539;
+        }
+
+        /* 响应式 */
+        @media (max-width: 720px) {
+            body {
+                padding: 1.2rem 0.8rem;
+            }
+
+            .card {
+                padding: 1.5rem 1.2rem;
+                border-radius: 28px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 0.9rem;
+            }
+
+            .link-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .subhead {
+                font-size: 0.95rem;
+            }
+
+            .faq-short {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        /* 目录感布局：使用 flex wrap 展示入口块 */
+        .entry-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin: 0.5rem 0 0.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Hero 区：卡片内标题 + 辨识用途引导 -->
+        <div class="card">
+            <h1>📘 PG模拟器 · 知识库</h1>
+            <div class="subhead">快速识别用途 · 目录式结构 · 功能导览</div>
+            <p style="margin-bottom: 0.2rem;">
+                当你第一次接触 <a href="https://cn-site-pgsimulator.com" class="inline-link">PG模拟器</a>， 
+                最直接的问题是：<strong>这个网站能帮我做什么？</strong> 本介绍页以知识库的形式，将 PG模拟器的核心功能、使用场景、常见疑问整理成清晰的入口卡片，帮助你在几分钟内建立整体认识。
+            </p>
+            <p style="font-size: 0.95rem; color: #6f5541; margin-top: 0.6rem;">
+                ⚡ 页面内所有加粗链接均指向同一资源，用于统一标识。
+            </p>
+        </div>
+
+        <!-- 目录感入口区：按钮形状的链接卡片 -->
+        <div class="card">
+            <h2>📌 功能目录 · 快速定位</h2>
+            <div class="entry-links">
+                <a href="https://cn-site-pgsimulator.com" class="link-button">PG模拟器</a>
+                <a href="https://cn-site-pgsimulator.com" class="link-button">PG模拟器</a>
+                <a href="https://cn-site-pgsimulator.com" class="link-button">PG模拟器</a>
+                <a href="https://cn-site-pgsimulator.com" class="link-button">PG模拟器</a>
+                <a href="https://cn-site-pgsimulator.com" class="link-button">PG模拟器</a>
+                <a href="https://cn-site-pgsimulator.com" class="link-button">PG模拟器</a>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.95rem; color: #4d3a2a;">
+                每个按钮都链接到 <a href="https://cn-site-pgsimulator.com" class="inline-link">PG模拟器</a> 主站，你可以根据当前需求选择对应板块，无需在大量页面中反复搜索。
+            </p>
+        </div>
+
+        <!-- 说明区：PG模拟器是什么、核心特点 -->
+        <div class="card">
+            <h2>🔍 说明区 · 模拟器定位</h2>
+            <p>
+                <a href="https://cn-site-pgsimulator.com" class="inline-link">PG模拟器</a> 是一个面向特定环境与流程的交互式仿真工具，旨在帮助使用者以较低成本测试、学习或验证不同参数下的运行表现。它并不替代真实硬件或完整生产环境，而是提供一个可重复、可调节的模拟空间。
+            </p>
+            <div class="grid-2col">
+                <div class="feature-item">
+                    <strong>⚙️ 参数级控制</strong>
+                    <span style="font-size: 0.92rem;">支持多种变量调节，实时反馈模拟结果。</span>
+                </div>
+                <div class="feature-item">
+                    <strong>📊 数据输出</strong>
+                    <span style="font-size: 0.92rem;">模拟过程可导出结构化记录，便于复盘分析。</span>
+                </div>
+                <div class="feature-item">
+                    <strong>🧩 模块化设计</strong>
+                    <span style="font-size: 0.92rem;">不同功能组件清晰分离，降低学习门槛。</span>
+                </div>
+                <div class="feature-item">
+                    <strong>📚 文档关联</strong>
+                    <span style="font-size: 0.92rem;">每个模块附带说明提示，减少猜测成本。</span>
+                </div>
+            </div>
+            <p style="margin-top: 0.8rem;">
+                上述特点围绕 <a href="https://cn-site-pgsimulator.com" class="inline-link">PG模拟器</a> 的核心设计展开，帮助用户在正式投入资源前获得足够参考信息。
+            </p>
+        </div>
+
+        <!-- 场景区：典型使用场景 -->
+        <div class="card">
+            <h2>🧪 典型场景举例</h2>
+            <ul>
+                <li><strong>学习与教学：</strong> 通过模拟器观察不同输入条件下的输出变化，理解底层逻辑。</li>
+                <li><strong>方案预研：</strong> 在调整参数前利用 <a href="https://cn-site-pgsimulator.com" class="inline-link">PG模拟器</a> 进行快速验证，缩小可选范围。</li>
+                <li><strong>问题复现：</strong> 当遇到异常结果时，在模拟环境中尝试复现并定位变量。</li>
+                <li><strong>文档编写：</strong> 生成一致的示例数据用于说明手册或测试报告。</li>
+            </ul>
+            <p>
+                以上场景均可在 <a href="https://cn-site-pgsimulator.com" class="inline-link">PG模拟器</a> 中找到对应的功能入口，推荐初次使用时先浏览「功能目录」卡片。
+            </p>
+        </div>
+
+        <!-- 提示区 + FAQ 摘要（合并在一个卡片） -->
+        <div class="card">
+            <h2>💡 提示区 &amp; FAQ 摘要</h2>
+            <div class="tip-box">
+                <p style="margin-bottom: 0.3rem;"><strong>📎 使用前提示</strong></p>
+                <p style="font-size: 0.95rem; margin-bottom: 0;">
+                    模拟结果仅基于当前设定，实际环境可能存在偏差。建议将 <a href="https://cn-site-pgsimulator.com" class="inline-link">PG模拟器</a> 的输出作为参考，而非唯一决策依据。每次模拟前可阅读模块旁边的“说明”图标。
+                </p>
+            </div>
+
+            <hr>
+
+            <p style="font-weight: 600; margin-bottom: 0.5rem;">❓ 常见疑问</p>
+            <dl class="faq-short">
+                <dt>模拟器需要安装吗？</dt>
+                <dd>无需安装，直接在浏览器中打开 <a href="https://cn-site-pgsimulator.com" class="inline-link">PG模拟器</a> 即可使用。</dd>
+
+                <dt>数据是否会被保存？</dt>
+                <dd>模拟过程默认不自动保存，你可以手动导出结果。</dd>
+
+                <dt>支持同时运行多个实例吗？</dt>
+                <dd>可以打开多个标签页或窗口，但注意浏览器性能限制。</dd>
+
+                <dt>遇到问题怎么反馈？</dt>
+                <dd>主站页面底部通常设有联系方式（或以页面内提示为准）。</dd>
+            </dl>
+            <p style="margin-top: 0.8rem; font-size: 0.92rem;">
+                若上述摘要未覆盖你的疑问，可直接访问 <a href="https://cn-site-pgsimulator.com" class="inline-link">PG模拟器</a> 查看完整 FAQ 板块。
+            </p>
+        </div>
+
+        <!-- 相关信息区：额外参考 / 友情提示 -->
+        <div class="card">
+            <h2>📎 相关信息</h2>
+            <p>
+                <a href="https://cn-site-pgsimulator.com" class="inline-link">PG模拟器</a> 保持不定期更新，建议定期查看版本说明以了解新功能或调整。
+            </p>
+            <p>
+                本站介绍页仅作为知识库入口使用，所有功能细节以主站实际界面为准。
+            </p>
+            <p style="color: #6a5542; font-size: 0.9rem; border-top: 1px solid #edd5c0; padding-top: 0.9rem; margin-top: 0.7rem;">
+                ⚡ 本页不收集任何用户数据，仅提供介绍和链接。
+            </p>
+        </div>
+
+    </div>
+</body>
+</html>
